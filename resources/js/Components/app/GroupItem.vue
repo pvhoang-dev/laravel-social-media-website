@@ -12,9 +12,7 @@ defineProps({
             <img :src="image" class="w-[32px] rounded-full" />
             <div>
                 <h3 class="font-black text-lg">{{ title }}</h3>
-                <div class="text-xs text-gray-500">
-                    {{ description }}
-                </div>
+                <div class="text-xs text-gray-500">{{ description }}</div>
             </div>
         </div>
     </div>

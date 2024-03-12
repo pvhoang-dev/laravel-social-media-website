@@ -1,29 +1,43 @@
 <script setup>
-import TextInput from "../TextInput.vue";
-import FollowingItem from "./FollowingItem.vue";
-import { ref } from "vue";
-
-const searchKeyword = ref("");
+import FollowingListItems from "@/Components/app/FollowingListItems.vue";
+import { Disclosure, DisclosureButton, DisclosurePanel } from "@headlessui/vue";
+import GroupListItems from "@/Components/app/GroupListItems.vue";
 </script>
 
 <template>
-    <div class="px-3">
-        <h2 class="text-2xl font-bold mb-4">My Friends</h2>
-        <TextInput :model-value="searchKeyword" placeholder="Type to search" />
-        <div class="py-8">
-            <div v-if="false" class="text-gray-400 flex text-center">
-                You don't have friends yet.
-            </div>
-            <div v-else>
-                <FollowingItem
-                    image="https://picsum.photos/100"
-                    title="Messi"
-                />
-                <FollowingItem
-                    image="https://picsum.photos/103"
-                    title="Ronaldo"
-                />
-            </div>
+    <div class="px-3 bg-white rounded border h-full py-3 overflow-hidden">
+        <div class="block lg:hidden">
+            <Disclosure v-slot="{ open }">
+                <DisclosureButton class="w-full">
+                    <div class="flex justify-between items-center">
+                        <h2 class="text-xl font-bold">My Followings</h2>
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            stroke-width="1.5"
+                            stroke="currentColor"
+                            class="w-6 h-6 transition-all"
+                            :class="open ? 'rotate-90 transform' : ''"
+                        >
+                            <path
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                d="M8.25 4.5l7.5 7.5-7.5 7.5"
+                            />
+                        </svg>
+                    </div>
+                </DisclosureButton>
+                <DisclosurePanel>
+                    <FollowingListItems />
+                </DisclosurePanel>
+            </Disclosure>
+        </div>
+        <div class="h-full overflow-hidden flex-col hidden lg:flex">
+            <h2 class="text-xl font-bold">My Followings</h2>
+            <FollowingListItems />
         </div>
     </div>
 </template>
+
+<style scoped></style>
