@@ -16,9 +16,9 @@
             <div class="group relative bg-white">
                 <img
                     :src="
-                        coverImageSrc ||
-                        user.cover_url ||
-                        '/img/default_cover.jpg'
+                        coverImageSrc || user.cover_url == '/storage/'
+                            ? '/img/default_cover.jpg'
+                            : user.cover_url
                     "
                     class="w-full h-[200px] object-cover"
                 />
