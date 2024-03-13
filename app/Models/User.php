@@ -25,6 +25,8 @@ class User extends Authenticatable implements MustVerifyEmail
         'username',
         'email',
         'password',
+        'cover_path',
+        'avatar_path'
     ];
 
     /**
@@ -47,11 +49,11 @@ class User extends Authenticatable implements MustVerifyEmail
         'password' => 'hashed',
     ];
 
-//    public function getSlugOptions(): SlugOptions
-//    {
-//        return SlugOptions::create()
-//            ->generateSlugsFrom('name')
-//            ->saveSlugsTo('username')
-//            ->doNotGenerateSlugsOnUpdate();
-//    }
+    //    public function getSlugOptions(): SlugOptions
+    //    {
+    //        return SlugOptions::create()
+    //            ->generateSlugsFrom('name')
+    //            ->saveSlugsTo('username')
+    //            ->doNotGenerateSlugsOnUpdate();
+    //    }
 }
