@@ -16,10 +16,12 @@
             <div class="group relative bg-white">
                 <img
                     :src="
-                        coverImageSrc || user.cover_url == '/storage/'
-                            ? '/img/default_cover.jpg'
-                            : user.cover_url
+                        coverImageSrc ||
+                        user.cover_url ||
+                        '/img/default_cover.jpg'
                     "
+                    :data1="coverImageSrc"
+                    :data2="user.cover_url"
                     class="w-full h-[200px] object-cover"
                 />
                 <div class="absolute top-2 right-2">
