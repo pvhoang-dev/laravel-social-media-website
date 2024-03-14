@@ -16,9 +16,13 @@
             <div class="group relative bg-white">
                 <img
                     :src="
-                        coverImageSrc ||
-                        user.cover_url ||
-                        '/img/default_cover.jpg'
+                        coverImageSrc
+                            ? coverImageSrc
+                            : user &&
+                              user.cover_url &&
+                              user.cover_url !== '/storage/'
+                            ? user.cover_url
+                            : '/img/default_cover.jpg'
                     "
                     :data1="coverImageSrc"
                     :data2="user.cover_url"
@@ -82,9 +86,13 @@
                     >
                         <img
                             :src="
-                                avatarImageSrc ||
-                                user.avatar_url ||
-                                '/img/default_avatar.webp'
+                                avatarImageSrc
+                                    ? avatarImageSrc
+                                    : user &&
+                                      user.avatar_url &&
+                                      user.avatar_url !== '/storage/'
+                                    ? user.avatar_url
+                                    : '/img/default_avatar.webp'
                             "
                             class="w-full h-full object-cover rounded-full"
                         />
