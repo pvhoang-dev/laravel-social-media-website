@@ -13,6 +13,10 @@ class Post extends Model
     use HasFactory;
     use SoftDeletes;
 
+    public static $rules = [
+        'body' => ['nullable', 'string'],
+        'user_id' => ['numeric']
+    ];
 
     protected $fillable = ['user_id', 'body'];
 

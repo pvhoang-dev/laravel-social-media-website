@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use App\Models\Post;
 
 class StorePostRequest extends FormRequest
 {
@@ -21,10 +22,7 @@ class StorePostRequest extends FormRequest
      */
     public function rules(): array
     {
-        return [
-            'body' => ['nullable', 'string'],
-            'user_id' => ['numeric']
-        ];
+        return Post::$rules;
     }
 
     protected function prepareForValidation()
