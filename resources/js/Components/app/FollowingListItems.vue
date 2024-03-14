@@ -26,66 +26,6 @@ const searchKeyword = ref("");
                 title="Elon Musk"
                 description="Lorem ipsum dolor sit amet, consectetur adipisicing elit."
             />
-            <FollowingItem
-                image="https://picsum.photos/100"
-                title="John Doe"
-                description="Lorem ipsum dolor sit amet, consectetur adipisicing elit."
-            />
-            <FollowingItem
-                image="https://picsum.photos/100"
-                title="Elon Musk"
-                description="Lorem ipsum dolor sit amet, consectetur adipisicing elit."
-            />
-            <FollowingItem
-                image="https://picsum.photos/100"
-                title="John Doe"
-                description="Lorem ipsum dolor sit amet, consectetur adipisicing elit."
-            />
-            <FollowingItem
-                image="https://picsum.photos/100"
-                title="Elon Musk"
-                description="Lorem ipsum dolor sit amet, consectetur adipisicing elit."
-            />
-            <FollowingItem
-                image="https://picsum.photos/100"
-                title="John Doe"
-                description="Lorem ipsum dolor sit amet, consectetur adipisicing elit."
-            />
-            <FollowingItem
-                image="https://picsum.photos/100"
-                title="Elon Musk"
-                description="Lorem ipsum dolor sit amet, consectetur adipisicing elit."
-            />
-            <FollowingItem
-                image="https://picsum.photos/100"
-                title="John Doe"
-                description="Lorem ipsum dolor sit amet, consectetur adipisicing elit."
-            />
-            <FollowingItem
-                image="https://picsum.photos/100"
-                title="Elon Musk"
-                description="Lorem ipsum dolor sit amet, consectetur adipisicing elit."
-            />
-            <FollowingItem
-                image="https://picsum.photos/100"
-                title="John Doe"
-                description="Lorem ipsum dolor sit amet, consectetur adipisicing elit."
-            />
-            <FollowingItem
-                image="https://picsum.photos/100"
-                title="Elon Musk"
-                description="Lorem ipsum dolor sit amet, consectetur adipisicing elit."
-            />
-            <FollowingItem
-                image="https://picsum.photos/100"
-                title="John Doe"
-                description="Lorem ipsum dolor sit amet, consectetur adipisicing elit."
-            />
-            <FollowingItem
-                image="https://picsum.photos/100"
-                title="Elon Musk"
-                description="Lorem ipsum dolor sit amet, consectetur adipisicing elit."
-            />
         </div>
     </div>
 </template>
