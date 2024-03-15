@@ -1,31 +1,33 @@
 <script setup>
 import { ref } from "vue";
 import InputTextarea from "@/Components/InputTextarea.vue";
-import { useForm } from "@inertiajs/vue3";
+import { useForm, usePage } from "@inertiajs/vue3";
+import PostModal from "@/Components/app/PostModal.vue";
 
-const postCreating = ref(false);
-const newPostForm = useForm({
+const authUser = usePage().props.auth.user;
+console.log(authUser);
+const showModal = ref(false);
+const newPost = ref({
+    id: null,
     body: "",
+    user: authUser,
 });
-function submit() {
-    newPostForm.post(route("post.create"), {
-        onSuccess: () => {
-            newPostForm.reset();
-        },
-    });
+
+function showCreatePostModal() {
+    showModal.value = true;
 }
 </script>
 
 <template>
     <div class="p-4 bg-white rounded-lg border mb-3">
-        <InputTextarea
-            @click="postCreating = true"
-            class="mb-3 w-full"
-            placeholder="Click here to create new post"
-            rows="1"
-            v-model="newPostForm.body"
-        />
-        <div v-if="postCreating" class="flex gap-2 justify-between">
+        <div
+            @click="showCreatePostModal"
+            class="py-2 px-3 border-2 border-gray-200 text-gray-500 rounded-md mb-3 w-full"
+        >
+            Click here to create new post
+        </div>
+        <!-- 
+        <div class="flex gap-2 justify-between">
             <button
                 type="button"
                 class="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 relative"
@@ -43,7 +45,10 @@ function submit() {
             >
                 Submit
             </button>
-        </div>
+        </div> 
+        -->
+
+        <PostModal :post="newPost" v-model="showModal" />
     </div>
 </template>
 
