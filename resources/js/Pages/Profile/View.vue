@@ -28,7 +28,7 @@
                     :data2="user.cover_url"
                     class="w-full h-[200px] object-cover"
                 />
-                <div class="absolute top-2 right-2">
+                <div v-if="isMyProfile" class="absolute top-2 right-2">
                     <button
                         v-if="!coverImageSrc"
                         class="bg-gray-50 hover:bg-gray-100 text-gray-800 py-1 px-2 text-xs flex items-center opacity-0 group-hover:opacity-100"
@@ -96,35 +96,37 @@
                             "
                             class="w-full h-full object-cover rounded-full"
                         />
-                        <button
-                            v-if="!avatarImageSrc"
-                            class="absolute left-0 top-0 right-0 bottom-0 bg-black/50 text-gray-200 rounded-full opacity-0 flex items-center justify-center group-hover/avatar:opacity-100"
-                        >
-                            <CameraIcon class="w-8 h-8" />
+                        <template v-if="isMyProfile">
+                            <button
+                                v-if="!avatarImageSrc"
+                                class="absolute left-0 top-0 right-0 bottom-0 bg-black/50 text-gray-200 rounded-full opacity-0 flex items-center justify-center group-hover/avatar:opacity-100"
+                            >
+                                <CameraIcon class="w-8 h-8" />
 
-                            <input
-                                type="file"
-                                class="absolute left-0 top-0 bottom-0 right-0 opacity-0"
-                                @change="onAvatarChange"
-                            />
-                        </button>
-                        <div
-                            v-else
-                            class="absolute top-1 right-0 flex flex-col gap-2"
-                        >
-                            <button
-                                @click="resetAvatarImage"
-                                class="w-7 h-7 flex items-center justify-center bg-red-500/80 text-white rounded-full"
-                            >
-                                <XMarkIcon class="h-5 w-5" />
+                                <input
+                                    type="file"
+                                    class="absolute left-0 top-0 bottom-0 right-0 opacity-0"
+                                    @change="onAvatarChange"
+                                />
                             </button>
-                            <button
-                                @click="submitAvatarImage"
-                                class="w-7 h-7 flex items-center justify-center bg-emerald-500/80 text-white rounded-full"
+                            <div
+                                v-else
+                                class="absolute top-1 right-0 flex flex-col gap-2"
                             >
-                                <CheckCircleIcon class="h-5 w-5" />
-                            </button>
-                        </div>
+                                <button
+                                    @click="resetAvatarImage"
+                                    class="w-7 h-7 flex items-center justify-center bg-red-500/80 text-white rounded-full"
+                                >
+                                    <XMarkIcon class="h-5 w-5" />
+                                </button>
+                                <button
+                                    @click="submitAvatarImage"
+                                    class="w-7 h-7 flex items-center justify-center bg-emerald-500/80 text-white rounded-full"
+                                >
+                                    <CheckCircleIcon class="h-5 w-5" />
+                                </button>
+                            </div>
+                        </template>
                     </div>
                     <div class="flex justify-between items-center flex-1 p-4">
                         <h2 class="font-bold text-lg">{{ user.name }}</h2>
