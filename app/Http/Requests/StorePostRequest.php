@@ -22,7 +22,7 @@ class StorePostRequest extends FormRequest
      */
     public function rules(): array
     {
-        return Post::$rules;
+        return Post::getRules();
     }
 
     protected function prepareForValidation()
