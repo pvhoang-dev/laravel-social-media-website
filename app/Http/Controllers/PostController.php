@@ -8,6 +8,8 @@ use App\Http\Requests\UpdatePostRequest;
 use App\Models\Post;
 use App\Models\PostAttachment;
 use App\Models\PostReaction;
+use App\Models\Comment;
+use App\Http\Resources\CommentResource;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -160,5 +162,20 @@ class PostController extends Controller
             'num_of_reactions' => $reactions,
             'current_user_has_reaction' => $hasReaction
         ]);
+    }
+
+    public function createComment(Request $request, Post $post)
+    {
+        $data = $request->validate([
+            'comment' => ['required']
+        ]);
+
+        $comment = Comment::create([
+            'post_id' => $post->id,
+            'comment' => nl2br($data['comment']),
+            'user_id' => Auth::id()
+        ]);
+
+        return response(new CommentResource($comment), 201);
     }
 }
