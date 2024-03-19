@@ -212,7 +212,7 @@ function createComment() {
                     <a href="javascript:void(0)">
                         <img
                             :src="authUser.avatar_url"
-                            class="w-[40px] rounded-full border border-2 transition-all hover:border-blue-500"
+                            class="w-[40px] rounded-full border-2 transition-all hover:border-blue-500"
                         />
                     </a>
                     <div class="flex flex-1">
@@ -239,7 +239,7 @@ function createComment() {
                             <a href="javascript:void(0)">
                                 <img
                                     :src="comment.user.avatar_url"
-                                    class="w-[40px] rounded-full border border-2 transition-all hover:border-blue-500"
+                                    class="w-[40px] rounded-full border-2 transition-all hover:border-blue-500"
                                 />
                             </a>
                             <div>
