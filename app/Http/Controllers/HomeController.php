@@ -14,23 +14,15 @@ class HomeController extends Controller
     {
         $userId = Auth::id();
 
-        $posts = Post::query()
-            ->withCount('reactions')
-            ->withCount('comments')
+        $posts = Post::query() // SELECT * FROM posts
+            ->withCount('reactions') // SELECT COUNT(*) from reactions
             ->with([
                 'comments' => function ($query) use ($userId) {
-                    $query
-                        ->whereNull('parent_id')
-                        ->withCount('reactions')
-                        ->withCount('comments')
-                        ->with([
-                            'reactions' => function ($query) use ($userId) {
-                                $query->where('user_id', $userId);
-                            }
-                        ]);
+                    $query->withCount('reactions'); // SELECT * FROM comments WHERE post_id IN (1, 2, 3...)
+                    // SELECT COUNT(*) from reactions
                 },
                 'reactions' => function ($query) use ($userId) {
-                    $query->where('user_id', $userId);
+                    $query->where('user_id', $userId); // SELECT * from reactions WHERE user_id = ?
                 }
             ])
             ->latest()

@@ -23,6 +23,7 @@ const props = defineProps({
         default: null,
     },
 });
+const emit = defineEmits(["commentCreate", "commentDelete"]);
 
 function startCommentEdit(comment) {
     console.log(comment);
@@ -45,6 +46,7 @@ function createComment() {
                 props.parentComment.num_of_comments++;
             }
             props.post.num_of_comments++;
+            emit("commentCreate", data);
         });
 }
 
@@ -63,6 +65,7 @@ function deleteComment(comment) {
             props.parentComment.num_of_comments--;
         }
         props.post.num_of_comments--;
+        emit("commentDelete", comment);
     });
 }
 
@@ -92,6 +95,20 @@ function sendCommentReaction(comment) {
             comment.current_user_has_reaction = data.current_user_has_reaction;
             comment.num_of_reactions = data.num_of_reactions;
         });
+}
+
+function onCommentCreate(comment) {
+    if (props.parentComment) {
+        props.parentComment.num_of_comments++;
+    }
+    emit("commentCreate", comment);
+}
+
+function onCommentDelete(comment) {
+    if (props.parentComment) {
+        props.parentComment.num_of_comments--;
+    }
+    emit("commentDelete", comment);
 }
 </script>
 <template>
@@ -207,6 +224,8 @@ function sendCommentReaction(comment) {
                             :post="post"
                             :data="{ comments: comment.comments }"
                             :parent-comment="comment"
+                            @comment-create="onCommentCreate"
+                            @comment-delete="onCommentDelete"
                         />
                     </DisclosurePanel>
                 </Disclosure>
