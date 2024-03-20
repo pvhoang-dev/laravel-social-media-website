@@ -1,12 +1,7 @@
 <script setup>
-import { Menu, MenuButton, MenuItems, MenuItem } from "@headlessui/vue";
-import {
-    PencilIcon,
-    TrashIcon,
-    EllipsisVerticalIcon,
-} from "@heroicons/vue/20/solid";
 import {
     ChatBubbleLeftRightIcon,
+    ChatBubbleLeftEllipsisIcon,
     HandThumbUpIcon,
     ArrowDownTrayIcon,
 } from "@heroicons/vue/24/outline";
@@ -18,11 +13,9 @@ import { isImage } from "@/helpers.js";
 import { PaperClipIcon } from "@heroicons/vue/24/solid/index.js";
 import axiosClient from "@/axiosClient.js";
 import InputTextarea from "@/Components/InputTextarea.vue";
-import PrimaryButton from "@/Components/PrimaryButton.vue";
 import IndigoButton from "@/Components/app/IndigoButton.vue";
 import ReadMoreReadLess from "@/Components/app/ReadMoreReadLess.vue";
 import EditDeleteDropdown from "@/Components/app/EditDeleteDropdown.vue";
-import DangerButton from "@/Components/DangerButton.vue";
 
 const authUser = usePage().props.auth.user;
 const editingComment = ref(null);
@@ -97,7 +90,7 @@ function startCommentEdit(comment) {
 function updateComment() {
     axiosClient
         .put(
-            route("post.comment.update", editingComment.value.id),
+            route("comment.update", editingComment.value.id),
             editingComment.value
         )
         .then(({ data }) => {
@@ -108,6 +101,17 @@ function updateComment() {
                 }
                 return c;
             });
+        });
+}
+
+function sendCommentReaction(comment) {
+    axiosClient
+        .post(route("comment.reaction", comment.id), {
+            reaction: "like",
+        })
+        .then(({ data }) => {
+            comment.current_user_has_reaction = data.current_user_has_reaction;
+            comment.num_of_reactions = data.num_of_reactions;
         });
 }
 </script>
@@ -248,39 +252,69 @@ function updateComment() {
                                 @delete="deleteComment(comment)"
                             />
                         </div>
-                        <div
-                            v-if="
-                                editingComment &&
-                                editingComment.id === comment.id
-                            "
-                            class="ml-12"
-                        >
-                            <InputTextarea
-                                v-model="editingComment.comment"
-                                placeholder="Enter your comment here"
-                                rows="1"
-                                class="w-full max-h-[160px] resize-none"
-                            ></InputTextarea>
+                        <div class="pl-12">
+                            <div
+                                v-if="
+                                    editingComment &&
+                                    editingComment.id === comment.id
+                                "
+                            >
+                                <InputTextarea
+                                    v-model="editingComment.comment"
+                                    placeholder="Enter your comment here"
+                                    rows="1"
+                                    class="w-full max-h-[160px] resize-none"
+                                ></InputTextarea>
 
-                            <div class="flex gap-2 justify-end">
+                                <div class="flex gap-2 justify-end">
+                                    <button
+                                        @click="editingComment = null"
+                                        class="rounded-r-none text-indigo-500"
+                                    >
+                                        cancel
+                                    </button>
+                                    <IndigoButton
+                                        @click="updateComment"
+                                        class="w-[100px]"
+                                        >update
+                                    </IndigoButton>
+                                </div>
+                            </div>
+                            <ReadMoreReadLess
+                                v-else
+                                :content="comment.comment"
+                                content-class="text-sm flex flex-1"
+                            />
+                            <div class="mt-1 flex gap-2">
                                 <button
-                                    @click="editingComment = null"
-                                    class="rounded-r-none text-indigo-500"
+                                    @click="sendCommentReaction(comment)"
+                                    class="flex items-center text-xs text-indigo-500 py-0.5 px-1 rounded-lg"
+                                    :class="[
+                                        comment.current_user_has_reaction
+                                            ? 'bg-indigo-50 hover:bg-indigo-100'
+                                            : 'hover:bg-indigo-50',
+                                    ]"
                                 >
-                                    Cancel
+                                    <HandThumbUpIcon class="w-3 h-3 mr-1" />
+                                    <span class="mr-2">{{
+                                        comment.num_of_reactions
+                                    }}</span>
+                                    {{
+                                        comment.current_user_has_reaction
+                                            ? "unlike"
+                                            : "like"
+                                    }}
                                 </button>
-                                <IndigoButton
-                                    @click="updateComment"
-                                    class="w-[100px]"
-                                    >Update
-                                </IndigoButton>
+                                <button
+                                    class="flex items-center text-xs text-indigo-500 py-0.5 px-1 hover:bg-indigo-100 rounded-lg"
+                                >
+                                    <ChatBubbleLeftEllipsisIcon
+                                        class="w-3 h-3 mr-1"
+                                    />
+                                    reply
+                                </button>
                             </div>
                         </div>
-                        <ReadMoreReadLess
-                            v-else
-                            :content="comment.comment"
-                            content-class="text-sm flex flex-1 ml-12"
-                        />
                     </div>
                 </div>
             </DisclosurePanel>
