@@ -65,7 +65,7 @@ function next() {
                 </TransitionChild>
 
                 <div class="fixed inset-0 overflow-y-auto">
-                    <div class="h-screen w-screen p-44">
+                    <div class="h-screen w-screen py-10 px-40">
                         <TransitionChild
                             as="template"
                             class="w-full h-full"
@@ -105,7 +105,7 @@ function next() {
                                         <img
                                             v-if="isImage(attachment)"
                                             :src="attachment.url"
-                                            class="max-w-full max-h-full p-16"
+                                            class="max-w-full max-h-full p-10"
                                         />
                                         <div
                                             v-else

@@ -267,12 +267,12 @@ function updateComment() {
                                     @click="editingComment = null"
                                     class="rounded-r-none text-indigo-500"
                                 >
-                                    cancel
+                                    Cancel
                                 </button>
                                 <IndigoButton
                                     @click="updateComment"
                                     class="w-[100px]"
-                                    >update
+                                    >Update
                                 </IndigoButton>
                             </div>
                         </div>
