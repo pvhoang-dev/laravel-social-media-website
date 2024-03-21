@@ -11,6 +11,7 @@ import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
 import TabItem from "@/Pages/Profile/Partials/TabItem.vue";
 import { useForm } from "@inertiajs/vue3";
 import PrimaryButton from "@/Components/PrimaryButton.vue";
+
 const imagesForm = useForm({
     thumbnail: null,
     cover: null,
@@ -29,6 +30,7 @@ const props = defineProps({
         type: Object,
     },
 });
+
 function onCoverChange(event) {
     imagesForm.cover = event.target.files[0];
     if (imagesForm.cover) {
@@ -39,6 +41,7 @@ function onCoverChange(event) {
         reader.readAsDataURL(imagesForm.cover);
     }
 }
+
 function onThumbnailChange(event) {
     imagesForm.thumbnail = event.target.files[0];
     if (imagesForm.thumbnail) {
@@ -49,14 +52,17 @@ function onThumbnailChange(event) {
         reader.readAsDataURL(imagesForm.thumbnail);
     }
 }
+
 function resetCoverImage() {
     imagesForm.cover = null;
     coverImageSrc.value = null;
 }
+
 function resetThurmbnailImage() {
     imagesForm.thumbnail = null;
     thumbnailImageSrc.value = null;
 }
+
 function submitCoverImage() {
     imagesForm.post(route("group.updateImages", props.group.slug), {
         onSuccess: () => {
@@ -68,6 +74,7 @@ function submitCoverImage() {
         },
     });
 }
+
 function submitThurmbnailImage() {
     imagesForm.post(route("group.updateImages", props.group.slug), {
         onSuccess: () => {
@@ -129,7 +136,6 @@ function submitThurmbnailImage() {
                                 d="M16.5 12.75a4.5 4.5 0 11-9 0 4.5 4.5 0 019 0zM18.75 10.5h.008v.008h-.008V10.5z"
                             />
                         </svg>
-
                         Update Cover Image
                         <input
                             type="file"
@@ -175,14 +181,12 @@ function submitThurmbnailImage() {
                             class="absolute left-0 top-0 right-0 bottom-0 bg-black/50 text-gray-200 rounded-full opacity-0 flex items-center justify-center group-hover/thumbnail:opacity-100"
                         >
                             <CameraIcon class="w-8 h-8" />
-
                             <input
                                 type="file"
                                 class="absolute left-0 top-0 bottom-0 right-0 opacity-0"
                                 @change="onThumbnailChange"
                             />
                         </button>
-
                         <div
                             v-else-if="isCurrentUserAdmin"
                             class="absolute top-1 right-0 flex flex-col gap-2"
@@ -203,17 +207,19 @@ function submitThurmbnailImage() {
                     </div>
                     <div class="flex justify-between items-center flex-1 p-4">
                         <h2 class="font-bold text-lg">{{ group.name }}</h2>
-
-                        <PrimaryButton v-if="isCurrentUserAdmin"
-                            >Invite Users</PrimaryButton
+                        <PrimaryButton v-if="isCurrentUserAdmin">
+                            Invite Users
+                        </PrimaryButton>
+                        <PrimaryButton
+                            v-if="!group.role && group.auto_approval"
                         >
-                        <PrimaryButton v-if="!group.role && group.auto_approval"
-                            >Join to Group</PrimaryButton
-                        >
+                            Join to Group
+                        </PrimaryButton>
                         <PrimaryButton
                             v-if="!group.role && !group.auto_approval"
-                            >Request to join</PrimaryButton
                         >
+                            Request to join
+                        </PrimaryButton>
                     </div>
                 </div>
             </div>

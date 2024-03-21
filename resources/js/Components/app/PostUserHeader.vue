@@ -20,19 +20,19 @@ defineProps({
         </a>
         <div>
             <h4 class="font-bold">
-                <a href="javascript:void(0)" class="hover:underline">{{
-                    post.user.name
-                }}</a>
+                <a href="javascript:void(0)" class="hover:underline">
+                    {{ post.user.name }}
+                </a>
                 <template v-if="post.group">
                     >
-                    <a href="javascript:void(0)" class="hover:underline">{{
-                        post.group.name
-                    }}</a>
+                    <a href="javascript:void(0)" class="hover:underline"
+                        >{{ post.group.name }}
+                    </a>
                 </template>
             </h4>
-            <small v-if="showTime" class="text-gray-400">{{
-                post.updated_at
-            }}</small>
+            <small v-if="showTime" class="text-gray-400">
+                {{ post.updated_at }}
+            </small>
         </div>
     </div>
 </template>

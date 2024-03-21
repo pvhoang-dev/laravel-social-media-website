@@ -6,6 +6,7 @@ import {
 } from "@heroicons/vue/20/solid/index.js";
 import { Menu, MenuButton, MenuItem, MenuItems } from "@headlessui/vue";
 import { usePage } from "@inertiajs/vue3";
+
 defineProps({
     user: Object,
 });

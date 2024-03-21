@@ -13,7 +13,6 @@ import {
     DialogPanel,
     DialogTitle,
 } from "@headlessui/vue";
-import InputTextarea from "@/Components/InputTextarea.vue";
 import PostUserHeader from "@/Components/app/PostUserHeader.vue";
 import { useForm, usePage } from "@inertiajs/vue3";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";

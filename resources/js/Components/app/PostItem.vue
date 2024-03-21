@@ -1,11 +1,8 @@
 <script setup>
-import {
-    ChatBubbleLeftEllipsisIcon,
-    HandThumbUpIcon,
-} from "@heroicons/vue/24/outline";
+import { HandThumbUpIcon } from "@heroicons/vue/24/outline";
 import { Disclosure, DisclosureButton, DisclosurePanel } from "@headlessui/vue";
 import PostUserHeader from "@/Components/app/PostUserHeader.vue";
-import { router, usePage } from "@inertiajs/vue3";
+import { router } from "@inertiajs/vue3";
 import axiosClient from "@/axiosClient.js";
 import ReadMoreReadLess from "@/Components/app/ReadMoreReadLess.vue";
 import EditDeleteDropdown from "@/Components/app/EditDeleteDropdown.vue";
@@ -83,14 +80,18 @@ function sendReaction() {
                     ]"
                 >
                     <HandThumbUpIcon class="w-5 h-5" />
-                    <span class="mr-2">{{ post.num_of_reactions }}</span>
+                    <span class="mr-2">
+                        {{ post.num_of_reactions }}
+                    </span>
                     {{ post.current_user_has_reaction ? "Unlike" : "Like" }}
                 </button>
                 <DisclosureButton
                     class="text-gray-800 flex gap-1 items-center justify-center bg-gray-100 rounded-lg hover:bg-gray-200 py-2 px-4 flex-1"
                 >
                     <ChatBubbleLeftRightIcon class="w-5 h-5" />
-                    <span class="mr-2">{{ post.num_of_comments }}</span>
+                    <span class="mr-2">
+                        {{ post.num_of_comments }}
+                    </span>
                     Comment
                 </DisclosureButton>
             </div>

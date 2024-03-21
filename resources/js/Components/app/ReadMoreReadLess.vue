@@ -1,5 +1,6 @@
 <script setup>
 import { Disclosure, DisclosureButton, DisclosurePanel } from "@headlessui/vue";
+
 defineProps({
     content: String,
     contentClass: String,

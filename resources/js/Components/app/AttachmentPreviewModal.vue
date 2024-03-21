@@ -11,9 +11,9 @@ import {
     TransitionChild,
     Dialog,
     DialogPanel,
-    DialogTitle,
 } from "@headlessui/vue";
 import { isImage } from "@/helpers.js";
+
 const props = defineProps({
     attachments: {
         type: Array,
@@ -34,14 +34,17 @@ const attachment = computed(() => {
     return props.attachments[currentIndex.value];
 });
 const emit = defineEmits(["update:modelValue", "update:index", "hide"]);
+
 function closeModal() {
     show.value = false;
     emit("hide");
 }
+
 function prev() {
     if (currentIndex.value === 0) return;
     currentIndex.value--;
 }
+
 function next() {
     if (currentIndex.value === props.attachments.length - 1) return;
     currentIndex.value++;
@@ -114,7 +117,6 @@ function next() {
                                             <PaperClipIcon
                                                 class="w-10 h-10 mb-3"
                                             />
-
                                             <small>{{ attachment.name }}</small>
                                         </div>
                                     </div>
