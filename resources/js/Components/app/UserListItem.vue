@@ -22,7 +22,7 @@ defineEmits(["approve"]);
         >
             <img
                 :src="user.avatar_url || '/img/default_avatar.webp'"
-                class="w-[32px] rounded-full"
+                class="w-[32px] h-[32px] object-cover rounded-full"
             />
             <div class="flex justify-between flex-1">
                 <h3 class="font-black">{{ user.name }}</h3>
