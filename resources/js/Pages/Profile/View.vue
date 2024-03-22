@@ -16,16 +16,10 @@
             <div class="group relative bg-white">
                 <img
                     :src="
-                        coverImageSrc
-                            ? coverImageSrc
-                            : user &&
-                              user.cover_url &&
-                              user.cover_url !== '/storage/'
-                            ? user.cover_url
-                            : '/img/default_cover.jpg'
+                        coverImageSrc ||
+                        user.cover_url ||
+                        '/img/default_cover.jpg'
                     "
-                    :data1="coverImageSrc"
-                    :data2="user.cover_url"
                     class="w-full h-[200px] object-cover"
                 />
                 <div v-if="isMyProfile" class="absolute top-2 right-2">
@@ -86,13 +80,9 @@
                     >
                         <img
                             :src="
-                                avatarImageSrc
-                                    ? avatarImageSrc
-                                    : user &&
-                                      user.avatar_url &&
-                                      user.avatar_url !== '/storage/'
-                                    ? user.avatar_url
-                                    : '/img/default_avatar.webp'
+                                avatarImageSrc ||
+                                user.avatar_url ||
+                                '/img/default_avatar.webp'
                             "
                             class="w-full h-full object-cover rounded-full"
                         />
