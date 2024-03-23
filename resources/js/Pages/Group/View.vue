@@ -143,6 +143,12 @@ function onRoleChange(user, role) {
         preserveScroll: true,
     });
 }
+
+function updateGroup() {
+    aboutForm.put(route("group.update", props.group.slug), {
+        preserveScroll: true,
+    });
+}
 </script>
 
 <template>
