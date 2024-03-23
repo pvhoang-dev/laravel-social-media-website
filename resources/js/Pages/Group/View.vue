@@ -126,6 +126,17 @@ function rejectUser(user) {
         preserveScroll: true,
     });
 }
+
+function onRoleChange(user, role) {
+    console.log(user, role);
+    const form = useForm({
+        user_id: user.id,
+        role,
+    });
+    form.post(route("group.changeRole", props.group.slug), {
+        preserveScroll: true,
+    });
+}
 </script>
 
 <template>
@@ -337,7 +348,12 @@ function rejectUser(user) {
                                     v-for="user of users"
                                     :user="user"
                                     :key="user.id"
+                                    :show-role-dropdown="isCurrentUserAdmin"
+                                    :disable-role-dropdown="
+                                        group.user_id === user.id
+                                    "
                                     class="shadow rounded-lg"
+                                    @role-change="onRoleChange"
                                 />
                             </div>
                         </TabPanel>
