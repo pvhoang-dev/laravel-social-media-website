@@ -75,6 +75,7 @@ function resetThurmbnailImage() {
 
 function submitCoverImage() {
     imagesForm.post(route("group.updateImages", props.group.slug), {
+        preserveScroll: true,
         onSuccess: () => {
             showNotification.value = true;
             resetCoverImage();
@@ -87,6 +88,7 @@ function submitCoverImage() {
 
 function submitThurmbnailImage() {
     imagesForm.post(route("group.updateImages", props.group.slug), {
+        preserveScroll: true,
         onSuccess: () => {
             showNotification.value = true;
             resetThurmbnailImage();
@@ -99,7 +101,9 @@ function submitThurmbnailImage() {
 
 function joinToGroup() {
     const form = useForm({});
-    form.post(route("group.join", props.group.slug));
+    form.post(route("group.join", props.group.slug), {
+        preserveScroll: true,
+    });
 }
 
 function approveUser(user) {
@@ -107,7 +111,9 @@ function approveUser(user) {
         user_id: user.id,
         action: "approve",
     });
-    form.post(route("group.approveRequest", props.group.slug));
+    form.post(route("group.approveRequest", props.group.slug), {
+        preserveScroll: true,
+    });
 }
 
 function rejectUser(user) {
@@ -115,7 +121,10 @@ function rejectUser(user) {
         user_id: user.id,
         action: "reject",
     });
-    form.post(route("group.approveRequest", props.group.slug));
+
+    form.post(route("group.approveRequest", props.group.slug), {
+        preserveScroll: true,
+    });
 }
 </script>
 
