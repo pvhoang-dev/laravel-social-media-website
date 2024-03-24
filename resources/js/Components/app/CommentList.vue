@@ -7,7 +7,7 @@ import ReadMoreReadLess from "@/Components/app/ReadMoreReadLess.vue";
 import IndigoButton from "@/Components/app/IndigoButton.vue";
 import InputTextarea from "@/Components/InputTextarea.vue";
 import EditDeleteDropdown from "@/Components/app/EditDeleteDropdown.vue";
-import { usePage } from "@inertiajs/vue3";
+import { usePage, Link } from "@inertiajs/vue3";
 import { ref } from "vue";
 import axiosClient from "@/axiosClient.js";
 import { Disclosure, DisclosureButton, DisclosurePanel } from "@headlessui/vue";
@@ -114,12 +114,12 @@ function onCommentDelete(comment) {
 
 <template>
     <div class="flex gap-2 mb-3">
-        <a href="javascript:void(0)">
+        <Link :href="route('profile', authUser.username)">
             <img
                 :src="authUser.avatar_url"
                 class="w-[40px] rounded-full border-2 transition-all hover:border-blue-500"
             />
-        </a>
+        </Link>
         <div class="flex flex-1">
             <InputTextarea
                 v-model="newCommentText"
