@@ -11,8 +11,10 @@ use App\Models\PostAttachment;
 use App\Models\Reaction;
 use App\Models\Comment;
 use App\Http\Resources\CommentResource;
-use Illuminate\Support\Facades\Auth;
+use App\Notifications\CommentDeleted;
+use App\Notifications\PostDeleted;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\Rule;
@@ -117,16 +119,19 @@ class PostController extends Controller
      */
     public function destroy(Post $post)
     {
-        // TODO
         $id = Auth::id();
 
-        if ($post->user_id !== $id) {
-            return response("You don't have permission to delete this post", 403);
+        if ($post->isOwner($id) || $post->group && $post->group->isAdmin($id)) {
+            $post->delete();
+
+            if (!$post->isOwner($id)) {
+                $post->user->notify(new PostDeleted($post->group));
+            }
+
+            return back();
         }
 
-        $post->delete();
-
-        return back();
+        return response("You don't have permission to delete this post", 403);
     }
 
     public function downloadAttachment(PostAttachment $attachment)
@@ -199,12 +204,19 @@ class PostController extends Controller
 
     public function deleteComment(Comment $comment)
     {
-        if ($comment->user_id !== Auth::id()) {
-            return response("You don't have permission to delete this comment.", 403);
+        $post = $comment->post;
+        $id = Auth::id();
+        if ($comment->isOwner($id) || $post->isOwner($id)) {
+            $comment->delete();
+
+            if (!$comment->isOwner($id)) {
+                $comment->user->notify(new CommentDeleted($comment, $post));
+            }
+
+            return response('', 204);
         }
 
-        $comment->delete();
-        return response('', 204);
+        return response("You don't have permission to delete this comment.", 403);
     }
 
     public function commentReaction(Request $request, Comment $comment)

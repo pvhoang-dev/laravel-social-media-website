@@ -161,6 +161,8 @@ function onCommentDelete(comment) {
                 </div>
                 <EditDeleteDropdown
                     :user="comment.user"
+                    :post="post"
+                    :comment="comment"
                     @edit="startCommentEdit(comment)"
                     @delete="deleteComment(comment)"
                 />
