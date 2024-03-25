@@ -50,6 +50,8 @@ Route::middleware('auth')->group(function () {
         ->name('group.join');
     Route::post('/group/approve-request/{group:slug}', [GroupController::class, 'approveRequest'])
         ->name('group.approveRequest');
+    Route::delete('/group/remove-user/{group:slug}', [GroupController::class, 'removeUser'])
+        ->name('group.removeUser');
     Route::post('/group/change-role/{group:slug}', [GroupController::class, 'changeRole'])
         ->name('group.changeRole');
 
