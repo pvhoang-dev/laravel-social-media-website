@@ -27,7 +27,10 @@ defineProps({
                             : "not approved"
                     }}
                 </div>
-                <div class="text-xs text-gray-500">{{ group.description }}</div>
+                <div
+                    class="text-xs text-gray-500"
+                    v-html="group.description"
+                ></div>
             </div>
         </Link>
     </div>
