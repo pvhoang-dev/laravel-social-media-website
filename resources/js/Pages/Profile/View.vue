@@ -236,7 +236,7 @@ function followUser() {
                             </p>
                         </div>
 
-                        <div>
+                        <div v-if="props.user.id !== authUser.id">
                             <PrimaryButton
                                 v-if="!isCurrentUserFollower"
                                 @click="followUser"
