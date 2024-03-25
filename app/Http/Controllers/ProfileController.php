@@ -7,6 +7,7 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use App\Http\Resources\UserResource;
+use App\Models\Follower;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
@@ -18,11 +19,19 @@ class ProfileController extends Controller
 {
     public function index(User $user)
     {
+        $isCurrentUserFollower = false;
+        if (!Auth::guest()) {
+            $isCurrentUserFollower = Follower::where('user_id', $user->id)->where('follower_id', Auth::id())->exists();
+        }
+        $followerCount = Follower::where('user_id', $user->id)->count();
+
         return Inertia::render('Profile/View', [
             'mustVerifyEmail' => $user instanceof MustVerifyEmail,
             'status' => session('status'),
             'success' => session('success'),
-            'user' => new UserResource($user)
+            'user' => new UserResource($user),
+            'isCurrentUserFollower' => $isCurrentUserFollower,
+            'followerCount' => $followerCount,
         ]);
     }
 
