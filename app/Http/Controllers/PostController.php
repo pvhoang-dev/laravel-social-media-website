@@ -12,6 +12,7 @@ use App\Models\Reaction;
 use App\Models\Comment;
 use App\Models\User;
 use App\Http\Resources\CommentResource;
+use App\Http\Resources\PostResource;
 use App\Notifications\CommentDeleted;
 use App\Notifications\PostDeleted;
 use App\Notifications\CommentCreated;
@@ -27,6 +28,20 @@ use Illuminate\Validation\Rule;
 
 class PostController extends Controller
 {
+    public function view(Post $post)
+    {
+        $post->loadCount('reactions');
+        $post->load([
+            'comments' => function ($query) {
+                $query->withCount('reactions'); // SELECT * FROM comments WHERE post_id IN (1, 2, 3...)
+                // SELECT COUNT(*) from reactions
+            },
+        ]);
+
+        return inertia('Post/View', [
+            'post' => new PostResource($post)
+        ]);
+    }
 
     /**
      * Store a newly created resource in storage.
