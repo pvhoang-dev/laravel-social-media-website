@@ -210,7 +210,7 @@ class PostController extends Controller
         ]);
 
         $post = $comment->post;
-        // $post->user->notify(new CommentCreated($comment));
+        // $post->user->notify(new CommentCreated($comment, $post));
 
         return response(new CommentResource($comment), 201);
     }
