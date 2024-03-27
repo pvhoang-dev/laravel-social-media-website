@@ -155,7 +155,6 @@ function deleteUser(user) {
 }
 
 function onRoleChange(user, role) {
-    console.log(user, role);
     const form = useForm({
         user_id: user.id,
         role,

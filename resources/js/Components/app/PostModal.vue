@@ -127,13 +127,11 @@ function submit() {
         form.group_id = props.group.id;
     }
     form.attachments = attachmentFiles.value.map((myFile) => myFile.file);
-    console.log(form);
     if (props.post.id) {
         form._method = "PUT";
         form.post(route("post.update", props.post.id), {
             preserveScroll: true,
             onSuccess: (res) => {
-                console.log(res);
                 closeModal();
             },
             onError: (errors) => {
@@ -208,9 +206,7 @@ function undoDelete(myFile) {
 }
 
 function getAIContent() {
-    console.log(1);
     if (!form.body) {
-        console.log(2);
         return;
     }
     aiButtonLoading.value = true;
@@ -251,7 +247,6 @@ function fetchPreview(url) {
 }
 
 function onInputChange() {
-    console.log("222222222");
     let url = matchHref();
     if (!url) {
         url = matchLink();
