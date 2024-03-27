@@ -25,7 +25,8 @@ class Group extends Model
         'auto_approval',
         'about',
         'cover_path',
-        'thumbnail_path'
+        'thumbnail_path',
+        'pinned_post_id'
     ];
 
     public function getSlugOptions(): SlugOptions
