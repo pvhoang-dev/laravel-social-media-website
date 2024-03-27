@@ -7,7 +7,7 @@ defineProps({
 </script>
 
 <template>
-    <div class="cursor-pointer hover:bg-gray-100">
+    <div class="cursor-pointer hover:bg-gray-100 dark:hover:bg-slate-800">
         <Link
             :href="route('group.profile', group.slug)"
             class="flex items-start gap-1 py-2 px-2"
