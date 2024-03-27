@@ -390,7 +390,10 @@ function updateGroup() {
                                     first and create it.
                                 </div>
                             </template>
-                            <div v-else class="py-8 text-center">
+                            <div
+                                v-else
+                                class="py-8 text-center dark:text-gray-100"
+                            >
                                 You don't have permission to view these posts.
                             </div>
                         </TabPanel>
@@ -449,7 +452,11 @@ function updateGroup() {
                                     Submit
                                 </PrimaryButton>
                             </template>
-                            <div v-else v-html="group.about"></div>
+                            <div
+                                v-else
+                                class="ck-content-output dark:text-gray-100"
+                                v-html="group.about"
+                            ></div>
                         </TabPanel>
                     </TabPanels>
                 </TabGroup>

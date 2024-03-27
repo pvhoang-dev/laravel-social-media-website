@@ -46,10 +46,16 @@ function openPhoto(index) {
         </template>
     </div>
     <div
-        v-if="!photos.length"
+        v-if="!photos"
         class="py-8 text-center text-gray-600 dark:text-gray-100"
     >
-        There are no photos
+        You don't have permission to view these photos.
+    </div>
+    <div
+        v-else-if="!photos.length"
+        class="py-8 text-center text-gray-600 dark:text-gray-100"
+    >
+        There are no photos.
     </div>
     <AttachmentPreviewModal
         :attachments="photos || []"

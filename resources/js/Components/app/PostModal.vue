@@ -288,7 +288,6 @@ function matchLink() {
     <BaseModal
         :title="post.id ? 'Update Post' : 'Create Post'"
         v-model="show"
-        class="dark:text-gray-100"
         @hide="closeModal"
     >
         <div class="p-4">
