@@ -17,7 +17,6 @@ class Post extends Model
 
     protected $fillable = ['user_id', 'body', 'group_id', 'preview', 'preview_url'];
 
-    // With casting
     protected $casts = [
         'preview' => 'json',
     ];

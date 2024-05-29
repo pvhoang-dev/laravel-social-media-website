@@ -115,7 +115,7 @@ class PostController extends Controller
             $data = $request->validated();
             $post->update($data);
 
-            $deleted_ids = $data['deleted_file_ids'] ?? []; // 1, 2, 3, 4
+            $deleted_ids = $data['deleted_file_ids'] ?? [];
 
             $attachments = PostAttachment::query()
                 ->where('post_id', $post->id)
