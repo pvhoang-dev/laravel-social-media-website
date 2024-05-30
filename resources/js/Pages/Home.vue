@@ -29,8 +29,9 @@ defineProps({
             >
                 <CreatePost />
                 <PostList :posts="posts.data" class="flex-1" />
-            </div></div
-    ></AuthenticatedLayout>
+            </div>
+        </div>
+    </AuthenticatedLayout>
 </template>
 
 <style></style>
