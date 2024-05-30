@@ -20,7 +20,7 @@ const props = defineProps({
             >
                 <div class="shadow bg-white p-3 rounded mb-3">
                     <h2 class="text-lg font-bold">Users</h2>
-                    <div class="grid-cols-2">
+                    <div class="grid-cols-2 overflow-auto h-52">
                         <UserListItem
                             v-if="users.length"
                             v-for="user of users"
@@ -33,7 +33,7 @@ const props = defineProps({
                 </div>
                 <div class="shadow bg-white p-3 rounded mb-3">
                     <h2 class="text-lg font-bold">Groups</h2>
-                    <div class="grid-cols-2">
+                    <div class="grid-cols-2 overflow-auto h-52">
                         <GroupItem
                             v-if="groups.length"
                             v-for="group of groups"
