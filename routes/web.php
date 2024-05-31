@@ -23,7 +23,6 @@ use Inertia\Inertia;
 
 Route::get('/', [HomeController::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard');
 
-
 Route::get('/u/{user:username}', [ProfileController::class, 'index'])
     ->name('profile');
 
@@ -32,7 +31,6 @@ Route::get('/g/{group:slug}', [GroupController::class, 'profile'])
 
 Route::get('/group/approve-invitation/{token}', [GroupController::class, 'approveInvitation'])
     ->name('group.approveInvitation');
-
 
 Route::middleware('auth')->group(function () {
 
@@ -64,12 +62,16 @@ Route::middleware('auth')->group(function () {
             ->name('group.changeRole');
     });
 
-    //    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    // Profile
+    // Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+
     Route::post('/profile/update-images', [ProfileController::class, 'updateImage'])
         ->name('profile.updateImages');
 
+    // follow
     Route::post('/user/follow/{user}', [UserController::class, 'follow'])->name('user.follow');
 
     // Posts
@@ -108,8 +110,10 @@ Route::middleware('auth')->group(function () {
     // Comments
     Route::delete('/comment/{comment}', [PostController::class, 'deleteComment'])
         ->name('comment.delete');
+
     Route::put('/comment/{comment}', [PostController::class, 'updateComment'])
         ->name('comment.update');
+
     Route::post('/comment/{comment}/reaction', [PostController::class, 'commentReaction'])
         ->name('comment.reaction');
 

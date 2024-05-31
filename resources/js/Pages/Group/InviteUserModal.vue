@@ -1,18 +1,8 @@
 <script setup>
 import { computed, ref } from "vue";
 import { XMarkIcon, BookmarkIcon } from "@heroicons/vue/24/solid";
-import {
-    TransitionRoot,
-    TransitionChild,
-    Dialog,
-    DialogPanel,
-    DialogTitle,
-} from "@headlessui/vue";
 import { useForm, usePage } from "@inertiajs/vue3";
 import TextInput from "@/Components/TextInput.vue";
-import Checkbox from "@/Components/Checkbox.vue";
-import InputTextarea from "@/Components/InputTextarea.vue";
-import axiosClient from "@/axiosClient.js";
 import BaseModal from "@/Components/app/BaseModal.vue";
 
 const props = defineProps({
@@ -28,19 +18,21 @@ const show = computed({
     set: (value) => emit("update:modelValue", value),
 });
 const emit = defineEmits(["update:modelValue", "hide", "create"]);
+
 function closeModal() {
     show.value = false;
     emit("hide");
     resetModal();
 }
+
 function resetModal() {
     form.reset();
     formErrors.value = {};
 }
+
 function submit() {
     form.post(route("group.inviteUsers", page.props.group.slug), {
         onSuccess(res) {
-            console.log(res);
             closeModal();
         },
         onError(res) {

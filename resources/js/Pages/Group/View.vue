@@ -132,7 +132,6 @@ function rejectUser(user) {
         user_id: user.id,
         action: "reject",
     });
-
     form.post(route("group.approveRequest", props.group.slug), {
         preserveScroll: true,
     });
