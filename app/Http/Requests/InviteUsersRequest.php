@@ -35,7 +35,8 @@ class InviteUsersRequest extends FormRequest
     {
         return [
             'email' => [
-                'required', function ($attribute, $value, \Closure $fail) {
+                'required',
+                function ($attribute, $value, \Closure $fail) {
                     $this->user =
                         User::query()
                         ->where('email', $value)

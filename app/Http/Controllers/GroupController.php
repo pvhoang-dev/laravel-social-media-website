@@ -148,6 +148,7 @@ class GroupController extends Controller
         ]);
 
         $thumbnail = $data['thumbnail'] ?? null;
+
         /** @var \Illuminate\Http\UploadedFile $cover */
         $cover = $data['cover'] ?? null;
 
