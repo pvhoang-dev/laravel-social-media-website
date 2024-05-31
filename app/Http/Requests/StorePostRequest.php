@@ -41,7 +41,6 @@ class StorePostRequest extends FormRequest
                 'array',
                 'max:50',
                 function ($attribute, $value, $fail) {
-                    // Custom rule to check the total size of all files
                     $totalSize = collect($value)->sum(fn (UploadedFile $file) => $file->getSize());
 
                     if ($totalSize > 1 * 1024 * 1024 * 1024) {

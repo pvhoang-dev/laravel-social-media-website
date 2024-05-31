@@ -37,11 +37,12 @@ class PostController extends Controller
                 'body' => "You don't have permission to view that post"
             ])->toResponse($request)->setStatusCode(403);
         }
+
         $post->loadCount('reactions');
+
         $post->load([
             'comments' => function ($query) {
-                $query->withCount('reactions'); // SELECT * FROM comments WHERE post_id IN (1, 2, 3...)
-                // SELECT COUNT(*) from reactions
+                $query->withCount('reactions');
             },
         ]);
 
@@ -60,15 +61,18 @@ class PostController extends Controller
         $user = $request->user();
 
         DB::beginTransaction();
+
         $allFilePaths = [];
         try {
             $post = Post::create($data);
 
             /** @var \Illuminate\Http\UploadedFile[] $files */
             $files = $data['attachments'] ?? [];
+
             foreach ($files as $file) {
                 $path = $file->store('attachments/' . $post->id, 'public');
                 $allFilePaths[] = $path;
+
                 PostAttachment::create([
                     'post_id' => $post->id,
                     'name' => $file->getClientOriginalName(),
@@ -110,11 +114,15 @@ class PostController extends Controller
         $user = $request->user();
 
         DB::beginTransaction();
+
         $allFilePaths = [];
         try {
             $data = $request->validated();
             $post->update($data);
+<<<<<<< HEAD
 
+=======
+>>>>>>> local
             $deleted_ids = $data['deleted_file_ids'] ?? [];
 
             $attachments = PostAttachment::query()
@@ -128,6 +136,7 @@ class PostController extends Controller
 
             /** @var \Illuminate\Http\UploadedFile[] $files */
             $files = $data['attachments'] ?? [];
+
             foreach ($files as $file) {
                 $path = $file->store('attachments/' . $post->id, 'public');
                 $allFilePaths[] = $path;
@@ -146,6 +155,7 @@ class PostController extends Controller
             foreach ($allFilePaths as $path) {
                 Storage::disk('public')->delete($path);
             }
+
             DB::rollBack();
             throw $e;
         }
@@ -187,6 +197,7 @@ class PostController extends Controller
         ]);
 
         $userId = Auth::id();
+
         $reaction = Reaction::where('user_id', $userId)
             ->where('object_id', $post->id)
             ->where('object_type', Post::class)
@@ -232,7 +243,7 @@ class PostController extends Controller
             'parent_id' => $data['parent_id'] ?: null
         ]);
 
-        $post = $comment->post;
+        // $post = $comment->post;
         // $post->user->notify(new CommentCreated($comment, $post));
 
         return response(new CommentResource($comment), 201);
@@ -253,15 +264,16 @@ class PostController extends Controller
     {
         $post = $comment->post;
         $id = Auth::id();
+
         if ($comment->isOwner($id) || $post->isOwner($id)) {
             $allComments = Comment::getAllChildrenComments($comment);
             $deletedCommentCount = count($allComments);
 
             $comment->delete();
 
-            if (!$comment->isOwner($id)) {
-                $comment->user->notify(new CommentDeleted($comment, $post));
-            }
+            // if (!$comment->isOwner($id)) {
+            //     $comment->user->notify(new CommentDeleted($comment, $post));
+            // }
 
             return response(['deleted' => $deletedCommentCount], 200);
         }
@@ -276,6 +288,7 @@ class PostController extends Controller
         ]);
 
         $userId = Auth::id();
+
         $reaction = Reaction::where('user_id', $userId)
             ->where('object_id', $comment->id)
             ->where('object_type', Comment::class)
@@ -286,6 +299,7 @@ class PostController extends Controller
             $reaction->delete();
         } else {
             $hasReaction = true;
+
             Reaction::create([
                 'object_id' => $comment->id,
                 'object_type' => Comment::class,
@@ -307,6 +321,7 @@ class PostController extends Controller
         ]);
     }
 
+    // TODO
     public function aiPostContent(Request $request)
     {
         $prompt = $request->get('prompt');
@@ -322,10 +337,7 @@ class PostController extends Controller
             ],
         ]);
 
-        return response([
-            'content' => $result->choices[0]->message->content
-            //            'content' => "\"🎉 Exciting news! We're thrilled to announce that we just released a brand new feature on our app/website! 💥 Get ready to experience the next level of convenience and efficiency with this game-changing addition. 🚀 Try it out now and let us know what you think! 😍 #NewFeatureAlert #UpgradeYourExperience\""
-        ]);
+        return response(['content' => $result->choices[0]->message->content]);
     }
 
     public function fetchUrlPreview(Request $request)
@@ -374,6 +386,7 @@ class PostController extends Controller
         }
 
         $pinned = false;
+
         if ($forGroup && $group->isAdmin(Auth::id())) {
             if ($group->pinned_post_id === $post->id) {
                 $group->pinned_post_id = null;

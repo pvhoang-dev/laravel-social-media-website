@@ -15,14 +15,17 @@ class UserController extends Controller
         $data = $request->validate([
             'follow' => ['boolean']
         ]);
+
         if ($data['follow']) {
             $message = 'You followed user "' . $user->name . '"';
+
             Follower::create([
                 'user_id' => $user->id,
                 'follower_id' => Auth::id()
             ]);
         } else {
             $message = 'You unfollowed user "' . $user->name . '"';
+
             Follower::query()
                 ->where('user_id', $user->id)
                 ->where('follower_id', Auth::id())

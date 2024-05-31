@@ -146,6 +146,7 @@ class GroupController extends Controller
         ]);
 
         $thumbnail = $data['thumbnail'] ?? null;
+
         /** @var \Illuminate\Http\UploadedFile $cover */
         $cover = $data['cover'] ?? null;
 
@@ -168,7 +169,7 @@ class GroupController extends Controller
             $success = 'Your thumbnail image was updated';
         }
 
-        //        session('success', 'Cover image has been updated');
+        // session('success', 'Cover image has been updated');
 
         return back()->with('success', $success);
     }
@@ -218,7 +219,7 @@ class GroupController extends Controller
             $errorTitle = 'The link is expired';
         }
 
-        dd(\inertia('Error', compact('errorTitle')));
+        // dd(\inertia('Error', compact('errorTitle')));
 
         if ($errorTitle) {
             return \inertia('Error', compact('errorTitle'));
@@ -241,7 +242,9 @@ class GroupController extends Controller
         $user = \request()->user();
 
         $status = GroupUserStatus::APPROVED->value;
+
         $successMessage = 'You have joined to group "' . $group->name . '"';
+
         if (!$group->auto_approval) {
             $status = GroupUserStatus::PENDING->value;
 

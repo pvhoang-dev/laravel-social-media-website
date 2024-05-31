@@ -37,10 +37,11 @@ class HomeController extends Controller
                     ->orWhereNotNull('gu.group_id')
                     ->orWhere('posts.user_id', $userId);
             })
-            //            ->whereNot('posts.user_id', $userId)
+            // ->whereNot('posts.user_id', $userId)
             ->paginate(10);
 
         $posts = PostResource::collection($posts);
+
         if ($request->wantsJson()) {
             return $posts;
         }
