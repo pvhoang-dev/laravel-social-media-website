@@ -24,9 +24,11 @@ class ProfileController extends Controller
     public function index(Request $request, User $user)
     {
         $isCurrentUserFollower = false;
+
         if (!Auth::guest()) {
             $isCurrentUserFollower = Follower::where('user_id', $user->id)->where('follower_id', Auth::id())->exists();
         }
+
         $followerCount = Follower::where('user_id', $user->id)->count();
 
         $posts = Post::postsForTimeline(Auth::id(), false)
@@ -114,6 +116,7 @@ class ProfileController extends Controller
         $user = $request->user();
 
         $avatar = $data['avatar'] ?? null;
+
         /** @var \Illuminate\Http\UploadedFile $cover */
         $cover = $data['cover'] ?? null;
 
@@ -135,8 +138,6 @@ class ProfileController extends Controller
             $user->update(['avatar_path' => $path]);
             $success = 'Your avatar image was updated';
         }
-
-        //        session('success', 'Cover image has been updated');
 
         return back()->with('success', $success);
     }
