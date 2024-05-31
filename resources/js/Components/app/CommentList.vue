@@ -26,10 +26,9 @@ const props = defineProps({
 const emit = defineEmits(["commentCreate", "commentDelete"]);
 
 function startCommentEdit(comment) {
-    console.log(comment);
     editingComment.value = {
         id: comment.id,
-        comment: comment.comment.replace(/<br\s*\/?>/gi, "\n"), // <br />, <br > <br> <br/>, <br    />
+        comment: comment.comment.replace(/<br\s*\/?>/gi, "\n"),
     };
 }
 
@@ -203,8 +202,8 @@ function onCommentDelete(comment) {
                             ]"
                         >
                             <HandThumbUpIcon class="w-3 h-3 mr-1" />
-                            <span class="mr-2"
-                                >{{ comment.num_of_reactions }}
+                            <span class="mr-2">
+                                {{ comment.num_of_reactions }}
                             </span>
                             {{
                                 comment.current_user_has_reaction

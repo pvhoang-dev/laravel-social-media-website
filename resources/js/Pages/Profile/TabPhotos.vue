@@ -4,11 +4,13 @@ import { ArrowDownTrayIcon } from "@heroicons/vue/24/outline";
 import { PaperClipIcon } from "@heroicons/vue/24/solid/index.js";
 import { ref } from "vue";
 import AttachmentPreviewModal from "@/Components/app/AttachmentPreviewModal.vue";
+
 defineProps({
     photos: Array,
 });
 const currentPhotoIndex = ref(0);
 const showModal = ref(false);
+
 function openPhoto(index) {
     currentPhotoIndex.value = index;
     showModal.value = true;
@@ -31,7 +33,6 @@ function openPhoto(index) {
                     <ArrowDownTrayIcon class="w-4 h-4" />
                 </a>
                 <!--/ Download-->
-
                 <img
                     v-if="isImage(attachment)"
                     :src="attachment.url"
@@ -39,7 +40,6 @@ function openPhoto(index) {
                 />
                 <div v-else class="flex flex-col justify-center items-center">
                     <PaperClipIcon class="w-10 h-10 mb-3" />
-
                     <small>{{ attachment.name }}</small>
                 </div>
             </div>

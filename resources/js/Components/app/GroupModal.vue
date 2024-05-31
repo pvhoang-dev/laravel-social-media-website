@@ -1,13 +1,6 @@
 <script setup>
 import { computed, ref } from "vue";
 import { XMarkIcon, BookmarkIcon } from "@heroicons/vue/24/solid";
-import {
-    TransitionRoot,
-    TransitionChild,
-    Dialog,
-    DialogPanel,
-    DialogTitle,
-} from "@headlessui/vue";
 import { useForm } from "@inertiajs/vue3";
 import axiosClient from "@/axiosClient.js";
 import GroupForm from "@/Components/app/GroupForm.vue";

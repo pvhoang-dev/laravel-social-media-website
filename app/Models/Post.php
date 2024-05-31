@@ -17,7 +17,6 @@ class Post extends Model
 
     protected $fillable = ['user_id', 'body', 'group_id', 'preview', 'preview_url'];
 
-    // With casting
     protected $casts = [
         'preview' => 'json',
     ];
@@ -54,23 +53,22 @@ class Post extends Model
 
     public static function postsForTimeline($userId, $getLatest = true): Builder
     {
-        $query = Post::query() // SELECT * FROM posts
-            ->withCount('reactions') // SELECT COUNT(*) from reactions
+        $query = Post::query()
+            ->withCount('reactions')
             ->with([
                 'user',
                 'group',
                 'group.currentUserGroup',
                 'attachments',
                 'comments' => function ($query) {
-                    $query->withCount('reactions'); // SELECT * FROM comments WHERE post_id IN (1, 2, 3...)
-                    // SELECT COUNT(*) from reactions
+                    $query->withCount('reactions');
                 },
                 'comments.user',
                 'comments.reactions' => function ($query) use ($userId) {
-                    $query->where('user_id', $userId); // SELECT * from reactions WHERE user_id = ?
+                    $query->where('user_id', $userId);
                 },
                 'reactions' => function ($query) use ($userId) {
-                    $query->where('user_id', $userId); // SELECT * from reactions WHERE user_id = ?
+                    $query->where('user_id', $userId);
                 }
             ]);
         if ($getLatest) {

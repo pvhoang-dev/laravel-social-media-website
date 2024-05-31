@@ -7,13 +7,13 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
-use function Laravel\Prompts\select;
 
 class Comment extends Model
 {
     use HasFactory;
 
     public int $numOfComments = 0;
+
     public array $childComments = [];
 
     protected $fillable = ['post_id', 'comment', 'user_id', 'parent_id'];
@@ -57,7 +57,6 @@ class Comment extends Model
         foreach ($comments as $comment) {
             if ($comment->parent_id === $parentId) {
                 $result[] = $comment;
-                // Find all comment which has parentId as $comment->id
                 self::_getAllChildrenComments($comments, $comment->id, $result);
             }
         }
