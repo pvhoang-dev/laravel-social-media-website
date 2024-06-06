@@ -70,6 +70,7 @@ class GroupController extends Controller
             ->join('group_users AS gu', 'gu.user_id', 'users.id')
             ->orderBy('users.name')
             ->where('group_id', $group->id)
+            ->where('gu.status', GroupUserStatus::APPROVED->value)
             ->get();
 
         $requests = $group->pendingUsers()->orderBy('name')->get();
